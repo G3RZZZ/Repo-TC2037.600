@@ -21,19 +21,22 @@ The first step in using the program is to open parenthesis
 to call the main function with the specifications of the 
 arithmetic expression that will define, this would 
 take the form of:
+
     **(arithmetic-lexer**
   
 
 Right after, open quotation marks and start typing the arithemtic 
 expression. For example the expression could be 3.1E333 + 1 so 
 then the test thus far should be:
+
     **(arithmetic-lexer "3.1E333 + 1**
 
 To end the statement and the arithmetic expression, close 
 quotation marks and parenthesis. Final stage of the example:
+
     **"(arithmetic-lexer "3.1E333 + 1")**
 
-<br> <br>
+<br>
 
 Exit or return:
 
@@ -43,9 +46,11 @@ arithmetic expression identified element by element.
 For example:
 
 When running:
+
     **(arithmetic-lexer "3.1E333 + 1")**
 
 Return: 
+
     **'(("3.1E333" exp) ("+" op) ("1" int))**
 
 Diagram of the automaton:
