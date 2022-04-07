@@ -1,14 +1,10 @@
 # Documentation for Automaton Program
- Mateo Herrera Lavalle - A017...
+ Mateo Herrera Lavalle - A01751912
 
  Gerardo Gutierrez Paniagua - A01029422
       
-       
-
-       
 --- 
      
-
 ## User Manual 
      
 To run program:
@@ -18,34 +14,35 @@ To run program:
    
 How to use the automaton:
 
-    The first step in using the program is to call the main function with the specifications of the arithmetic expression that will define, this would take the form of:
-**(automaton-2 (dfa-str 'start '**
+    The first step in using the program is to open parenthesis to call the main function with the specifications of the arithmetic expression that will define, this would take the form of:
+**(arithmetic-lexer**
   
 
-    Right after, ....
+    Right after, open quotation marks and start typing the arithemtic expression. For example the expression could be 3.1E333 + 1 so then the test thus far should be:
+**(arithmetic-lexer "3.1E333 + 1**
 
-  
+    To end the statement and the arithmetic expression, close quotation marks and parenthesis. Final stage of the example:
+**"(arithmetic-lexer "3.1E333 + 1")**
 
-    To end the statement, the arithmetic expression start and ends with "", for example;   
-**"(34 + 9)"**
+<br> <br>
 
-  
 Exit or return:
 
-    The end result of using the program correctly ought to be a list of lists of the tokens of the arithmetic expression identified element by element. For example:
+    The end result in the terminal for using the program correctly ought to be a list of lists of the tokens of the arithmetic expression identified element by element. For example:
 
     When running:
-**((arithmetic-lexer "97 /6 = 2 + 1") '(int op int op int op int) "Multiple operators"))**
+**(arithmetic-lexer "3.1E333 + 1")**
 
     Return: 
+**'(("3.1E333" exp) ("+" op) ("1" int))**
 
-Diagram:
+Diagram of the automaton:
 
-![DFA diagram](/images/diagram.jpeg"DFA Diagram")
+![DFA diagram](./diagram.jpeg)
 
 
-Table:
+DFA Table:
 
-![DFA value table](/images/table.jpeg"DFA table")
+![DFA value table](./table.jpeg)
 
 
