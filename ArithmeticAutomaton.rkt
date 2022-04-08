@@ -79,11 +79,9 @@ Gerardo Gutierrez - A01029422
         [(or (char-alphabetic? character) (eq? character #\_)) (values #f 'var)]
         [(eq? character #\space) (values #f 'o_sp)]
         [[eq? character #\( ] (values #f 'par_opn)]
-        [(eq? character #\.) (values #f 'float)]
         [else (values #f 'fail)])]
     ['n_sign (cond
         [(char-numeric? character) (values #f 'int)]
-        [(eq? character #\.) (values #f 'float)]
         [else (values #f 'fail)])]
     ['int (cond
         [(char-numeric? character) (values #f 'int)]
@@ -106,7 +104,6 @@ Gerardo Gutierrez - A01029422
         [(or (char-alphabetic? character) (eq? character #\_)) (values 'op 'var)]
         [(eq? character #\space) (values 'op 'o_sp)]
         [[eq? character #\( ] (values 'op 'par_opn)]
-        [(eq? character #\.) (values 'op 'float)]
         [else (values #f 'fail)])]
     ['o_sp (cond
         [(or (char-alphabetic? character) (eq? character #\_)) (values #f 'var)]
@@ -121,7 +118,6 @@ Gerardo Gutierrez - A01029422
         [(sign? character) (values 'par_opn 'n_sign)]
         [(eq? character #\space) (values 'par_opn 'o_sp)]
         [[eq? character #\( ] (values 'par_opn 'par_opn)]
-        [(eq? character #\.) (values 'par_opn 'float)]
         [else (values #f 'fail)])]
     ['par_cls (cond
         [(eq? character #\space) (values 'par_cls 'n_sp)]
