@@ -18,7 +18,7 @@ Gerardo Gutierrez - A01029422
 
 ;Function used to call the automaton with specified conditions
 (define (arithmetic-lexer string)
-  (automaton (dfa-str 'start '(int var par_cls float exp n_sp) delta-arithmetic) string)
+  (automaton (dfa-str 'start '(int var par_close float exp n_sp) delta-arithmetic) string)
 )
 
 ;Automaton that identifies all the token types found in the arithmetic input string
@@ -78,7 +78,7 @@ Gerardo Gutierrez - A01029422
         [(sign? character) (values #f 'n_sign)]
         [(or (char-alphabetic? character) (eq? character #\_)) (values #f 'var)]
         [(eq? character #\space) (values #f 'o_sp)]
-        [[eq? character #\( ] (values #f 'par_opn)]
+        [[eq? character #\( ] (values #f 'par_open)]
         [else (values #f 'fail)])]
     ['n_sign (cond
         [(char-numeric? character) (values #f 'int)]
@@ -87,7 +87,7 @@ Gerardo Gutierrez - A01029422
         [(char-numeric? character) (values #f 'int)]
         [(operator? character) (values 'int 'op)]
         [(eq? character #\space) (values 'int 'n_sp)]
-        [[eq? character #\)] (values 'int 'par_cls)]
+        [[eq? character #\)] (values 'int 'par_close)]
         [(e? character) (values #f 'e)]
         [(eq? character #\.) (values #f 'float)]
         [else (values #f 'fail)])]
@@ -96,38 +96,38 @@ Gerardo Gutierrez - A01029422
         [(char-numeric? character) (values #f 'var)]
         [(operator? character) (values 'var 'op)]
         [(eq? character #\space) (values 'var 'n_sp)]
-        [[eq? character #\)] (values 'var 'par_cls)]
+        [[eq? character #\)] (values 'var 'par_close)]
         [else (values #f 'fail)])]
     ['op (cond
         [(char-numeric? character) (values 'op 'int)]
         [(sign? character) (values 'op 'n_sign)]
         [(or (char-alphabetic? character) (eq? character #\_)) (values 'op 'var)]
         [(eq? character #\space) (values 'op 'o_sp)]
-        [[eq? character #\( ] (values 'op 'par_opn)]
+        [[eq? character #\( ] (values 'op 'par_open)]
         [else (values #f 'fail)])]
     ['o_sp (cond
         [(or (char-alphabetic? character) (eq? character #\_)) (values #f 'var)]
         [(char-numeric? character) (values #f 'int)]
         [(sign? character) (values #f 'n_sign)]
         [(eq? character #\space) (values #f 'o_sp)]
-        [[eq? character #\( ] (values #f 'par_opn)]
+        [[eq? character #\( ] (values #f 'par_open)]
         [else (values #f 'fail)])]
-    ['par_opn (cond
-        [(or (char-alphabetic? character) (eq? character #\_)) (values 'par_opn 'var)]
-        [(char-numeric? character) (values 'par_opn 'int)]
-        [(sign? character) (values 'par_opn 'n_sign)]
-        [(eq? character #\space) (values 'par_opn 'o_sp)]
-        [[eq? character #\( ] (values 'par_opn 'par_opn)]
+    ['par_open (cond
+        [(or (char-alphabetic? character) (eq? character #\_)) (values 'par_open 'var)]
+        [(char-numeric? character) (values 'par_open 'int)]
+        [(sign? character) (values 'par_open 'n_sign)]
+        [(eq? character #\space) (values 'par_open 'o_sp)]
+        [[eq? character #\( ] (values 'par_open 'par_open)]
         [else (values #f 'fail)])]
-    ['par_cls (cond
-        [(eq? character #\space) (values 'par_cls 'n_sp)]
-        [(operator? character) (values 'par_cls 'op)]
-        [[eq? character #\)] (values 'par_cls 'par_cls)]
+    ['par_close (cond
+        [(eq? character #\space) (values 'par_close 'n_sp)]
+        [(operator? character) (values 'par_close 'op)]
+        [[eq? character #\)] (values 'par_close 'par_close)]
         [else (values #f 'fail)])]
     ['n_sp (cond
         [(eq? character #\space) (values #f 'n_sp)]
         [(operator? character) (values #f 'op)]
-        [[eq? character #\)] (values #f 'par_cls)]
+        [[eq? character #\)] (values #f 'par_close)]
         [else (values #f 'fail)])]
     ['e (cond
         [(char-numeric? character) (values #f 'exp)]
@@ -139,14 +139,14 @@ Gerardo Gutierrez - A01029422
     ['float (cond
         [(char-numeric? character) (values #f 'float)]
         [(operator? character) (values 'float 'op)]
-        [[eq? character #\)] (values 'float 'par_cls)]
+        [[eq? character #\)] (values 'float 'par_close)]
         [(e? character) (values #f 'e)]
         [(eq? character #\space) (values 'float 'n_sp)]
         [else (values #f 'fail)])]
     ['exp (cond
         [(char-numeric? character) (values #f 'exp)]
         [(operator? character) (values 'exp 'op)]
-        [[eq? character #\)] (values 'exp 'par_cls)]
+        [[eq? character #\)] (values 'exp 'par_close)]
         [(eq? character #\space) (values 'exp 'n_sp)]
         [else (values #f 'fail)])]    
     ['fail (values #f 'fail)]))
