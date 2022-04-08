@@ -60,6 +60,6 @@ Diagram of the automaton:
 
 DFA Table:
 
-![DFA value table](./table.png)
+![DFA value table](./table.PNG)
 
 
