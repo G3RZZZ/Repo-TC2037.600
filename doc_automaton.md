@@ -55,11 +55,11 @@ Return:
 
 Diagram of the automaton:
 
-![DFA diagram](./diagram.jpeg)
+![DFA diagram](./diagram.jpg)
 
 
 DFA Table:
 
-![DFA value table](./table.jpeg)
+![DFA value table](./table.png)
 
 
