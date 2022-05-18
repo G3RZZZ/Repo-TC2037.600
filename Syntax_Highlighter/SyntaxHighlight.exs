@@ -1,3 +1,10 @@
+# Use of regex and language interpratation knowledge
+# to create a json file token identifier.
+# Example calls:
+# Highlighter.syntaxHighlight("Test_files/example_0.json")
+# Mateo Herrera - A01751912
+# Gerardo Gutierrez - A01029422
+
 defmodule Highlighter do
     
     def syntaxHighlight(in_filename) do
