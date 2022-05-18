@@ -1,0 +1,39 @@
+body {
+  background-color: Black;
+  color: Gray;
+}
+
+pre {
+  font-family: Monospace;
+  font-size: 20px;
+}
+
+h1 {
+  color: Black;
+  border: 4px solid red;
+  background-color: Aquamarine;
+  text-align: center;
+}
+
+.number {
+  color: Lime;
+}
+
+.string {
+  color: Yellow;
+  font-style: italic;
+}
+
+.object-key {
+  color: LightSkyBlue;
+  font-weight: bold;
+}
+
+.reserved-word {
+  font-weight: bold;
+  color: SandyBrown;
+}
+
+.punctuation {
+  color: LightGray;
+}

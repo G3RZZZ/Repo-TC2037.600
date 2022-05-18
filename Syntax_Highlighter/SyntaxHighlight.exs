@@ -1,0 +1,59 @@
+defmodule Highlighter do
+    
+    def syntaxHighlight(in_filename) do
+        code =
+            in_filename
+            |> File.stream!()
+            #|> String.split()
+            |> Enum.map(&code_from_line/1)
+            #|> Enum.filter(&(&1 != nil))
+            #|> Enum.map(&hd/1)
+            |> Enum.join()
+        createHtml(code)
+    end
+    
+    def code_from_line(line) do
+        cond do
+            Regex.run(~r|("\S+")\s*:|, line) != nil ->
+                line = Regex.replace(~r|("\S+")\s*:|, line,"<span class='object-key'>\\1</span><span class='punctuation'>:</span>")
+                code_from_line(line)
+            Regex.run(~r{"[^"<]+"(?!<)}, line) != nil ->
+                line = Regex.replace(~r{"[^"<]+"(?!<)}, line, "<span class='string'>\\0</span>")
+                code_from_line(line)
+            # Regex.run(~r{("\S+")(\s)}, line) != nil ->
+            #     line = Regex.replace(~r{("\S+")(,|\s)}, line, "<span class='string'>\\1</span>\\2")
+            #     code_from_line(line)
+            Regex.run(~r{[\dE.+-]+\d(?![.])\b(?!<)}, line) != nil ->
+                line = Regex.replace(~r{[\dE.+-]+\d(?![.])\b(?!<)}, line, "<span class='number'>\\0</span>")
+                code_from_line(line)
+            Regex.run(~r{null(?!<)|true(?!<)|false(?!<)}, line) != nil ->
+                line = Regex.replace(~r{null(?!<)|true(?!<)|false(?!<)}, line, "<span class='reserved-word'>\\0</span>")
+                code_from_line(line)
+            # Regex.run(~r{(\d+)(\s)}, line) != nil ->
+            #     line = Regex.replace(~r{(\d+)(,|\s)}, line, "<span class='number'>\\1</span>\\2")
+            #     code_from_line(line)
+            Regex.run(~r/{(?!<)|}(?!<)|,(?!<)|[[](?!<)|[]](?!<)/, line) != nil ->
+                line = Regex.replace(~r/{(?!<)|}(?!<)|,(?!<)|[[](?!<)|[]](?!<)/, line,"<span class='punctuation'>\\0</span>")
+                code_from_line(line)
+            # Regex.run(~r{[(?!<)|](?!<)}, line) != nil ->
+            #     line = Regex.replace(~r{[(?!<)|](?!<)}, line,"<span class='punctuation'>\\0</span>")
+            #     code_from_line(line)
+            true ->
+                line
+        end
+    end
+
+    def createHtml(code) do
+        html =
+            "template_page.html"
+            |> File.stream!()
+            |> Enum.map(&(Regex.replace(~r|^~a$|, &1, code)))
+            |> Enum.map(&(Regex.replace(~r|~a|, &1, "#{Date.utc_today()}")))
+            |> Enum.join()
+        File.write("index.html", html)
+    end
+
+end
+
+#{String.replace("\\0", ":", "a")}
+
