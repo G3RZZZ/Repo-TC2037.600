@@ -21,17 +21,17 @@ defmodule Highlighter do
             Regex.run(~r|("\S+")\s*:|, line) != nil ->
                 line = Regex.replace(~r|("\S+")\s*:|, line,"<span class='object-key'>\\1</span><span class='punctuation'>:</span>")
                 code_from_line(line)
-            Regex.run(~r{"[^"<]+"(?!<)}, line) != nil ->
-                line = Regex.replace(~r{"[^"<]+"(?!<)}, line, "<span class='string'>\\0</span>")
+            Regex.run(~r{"[^"<]*"(?!<\/)}, line) != nil ->
+                line = Regex.replace(~r{"[^"<]*"(?!<\/)}, line, "<span class='string'>\\0</span>")
                 code_from_line(line)
-            Regex.run(~r{[\dE.+-]+\d(?![.])\b(?!<)}, line) != nil ->
-                line = Regex.replace(~r{[\dE.+-]+\d(?![.])\b(?!<)}, line, "<span class='number'>\\0</span>")
+            Regex.run(~r{[\dEe.+-]*\d(?![.])\b(?!<\/)(?!.*")}, line) != nil ->
+                line = Regex.replace(~r{[\dEe.+-]*\d(?![.])\b(?!<\/)(?!.*")}, line, "<span class='number'>\\0</span>")
                 code_from_line(line)
-            Regex.run(~r{null(?!<)|true(?!<)|false(?!<)}, line) != nil ->
-                line = Regex.replace(~r{null(?!<)|true(?!<)|false(?!<)}, line, "<span class='reserved-word'>\\0</span>")
+            Regex.run(~r{null(?!<\/)|true(?!<\/)|false(?!<\/)}, line) != nil ->
+                line = Regex.replace(~r{null(?!<\/)|true(?!<\/)|false(?!<\/)}, line, "<span class='reserved-word'>\\0</span>")
                 code_from_line(line)
-            Regex.run(~r/{(?!<)|}(?!<)|,(?!<)|[[](?!<)|[]](?!<)/, line) != nil ->
-                line = Regex.replace(~r/{(?!<)|}(?!<)|,(?!<)|[[](?!<)|[]](?!<)/, line,"<span class='punctuation'>\\0</span>")
+            Regex.run(~r/{(?!<\/)|}(?!<\/)|,(?!<\/)|[[](?!<\/)|[]](?!<\/)/, line) != nil ->
+                line = Regex.replace(~r/{(?!<\/)|}(?!<\/)|,(?!<\/)|[[](?!<\/)|[]](?!<\/)/, line,"<span class='punctuation'>\\0</span>")
                 code_from_line(line)
             true ->
                 line
