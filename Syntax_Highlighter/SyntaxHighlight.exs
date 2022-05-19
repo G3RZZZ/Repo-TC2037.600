@@ -11,10 +11,7 @@ defmodule Highlighter do
         code =
             in_filename
             |> File.stream!()
-            #|> String.split()
             |> Enum.map(&code_from_line/1)
-            #|> Enum.filter(&(&1 != nil))
-            #|> Enum.map(&hd/1)
             |> Enum.join()
         createHtml(code)
     end
@@ -27,24 +24,15 @@ defmodule Highlighter do
             Regex.run(~r{"[^"<]+"(?!<)}, line) != nil ->
                 line = Regex.replace(~r{"[^"<]+"(?!<)}, line, "<span class='string'>\\0</span>")
                 code_from_line(line)
-            # Regex.run(~r{("\S+")(\s)}, line) != nil ->
-            #     line = Regex.replace(~r{("\S+")(,|\s)}, line, "<span class='string'>\\1</span>\\2")
-            #     code_from_line(line)
             Regex.run(~r{[\dE.+-]+\d(?![.])\b(?!<)}, line) != nil ->
                 line = Regex.replace(~r{[\dE.+-]+\d(?![.])\b(?!<)}, line, "<span class='number'>\\0</span>")
                 code_from_line(line)
             Regex.run(~r{null(?!<)|true(?!<)|false(?!<)}, line) != nil ->
                 line = Regex.replace(~r{null(?!<)|true(?!<)|false(?!<)}, line, "<span class='reserved-word'>\\0</span>")
                 code_from_line(line)
-            # Regex.run(~r{(\d+)(\s)}, line) != nil ->
-            #     line = Regex.replace(~r{(\d+)(,|\s)}, line, "<span class='number'>\\1</span>\\2")
-            #     code_from_line(line)
             Regex.run(~r/{(?!<)|}(?!<)|,(?!<)|[[](?!<)|[]](?!<)/, line) != nil ->
                 line = Regex.replace(~r/{(?!<)|}(?!<)|,(?!<)|[[](?!<)|[]](?!<)/, line,"<span class='punctuation'>\\0</span>")
                 code_from_line(line)
-            # Regex.run(~r{[(?!<)|](?!<)}, line) != nil ->
-            #     line = Regex.replace(~r{[(?!<)|](?!<)}, line,"<span class='punctuation'>\\0</span>")
-            #     code_from_line(line)
             true ->
                 line
         end
@@ -61,6 +49,4 @@ defmodule Highlighter do
     end
 
 end
-
-#{String.replace("\\0", ":", "a")}
 
