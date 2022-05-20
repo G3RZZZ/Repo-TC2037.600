@@ -1,13 +1,15 @@
 # Mateo Herrera - A01751912
 # Gerardo Gutierrez - A01029422
+
 # Use of regex and language interpratation knowledge
 # to create a json file token identifier.
 # The identified tokens are returned in a html file.
+
 # Example calls:
 # Highlighter.syntaxHighlight("Test_files/example_0.json")
 
 defmodule Highlighter do
-    
+
     # Function that reads a file and applies the token identifier function
     # to each line.
     def syntaxHighlight(in_filename) do
@@ -18,7 +20,7 @@ defmodule Highlighter do
             |> Enum.join()
         createHtml(code)
     end
-    
+
     # Function that accepts a line from a file. This function then identifies
     # all json tokens inside the line and places them inside a span with
     # an appropiriate class identifier.
@@ -30,7 +32,7 @@ defmodule Highlighter do
                 "<span class='object-key'>\\1</span><span class='punctuation'>:</span>")
                 code_from_line(line)
             Regex.run(~r{"[^"<]*"(?!<\/)}, line) != nil ->
-                line = Regex.replace(~r{"[^"<]*"(?!<\/)}, line, 
+                line = Regex.replace(~r{"[^"<]*"(?!<\/)}, line,
                 "<span class='string'>\\0</span>")
                 code_from_line(line)
             Regex.run(~r{[\dEe.+-]*\d(?![.])\b(?!<\/)(?!.*")}, line) != nil ->
@@ -38,7 +40,7 @@ defmodule Highlighter do
                 line, "<span class='number'>\\0</span>")
                 code_from_line(line)
             Regex.run(~r{null(?!<\/)|true(?!<\/)|false(?!<\/)}, line) != nil ->
-                line = Regex.replace(~r{null(?!<\/)|true(?!<\/)|false(?!<\/)}, 
+                line = Regex.replace(~r{null(?!<\/)|true(?!<\/)|false(?!<\/)},
                 line, "<span class='reserved-word'>\\0</span>")
                 code_from_line(line)
             Regex.run(~r/{(?!<\/)|}(?!<\/)|,(?!<\/)(?=[^¨] *<|\n)|[[](?!<\/)|[]](?!<\/)/, 
