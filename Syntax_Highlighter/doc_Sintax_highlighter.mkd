@@ -7,7 +7,7 @@ Looking back at the proposed solution, the algorithms used are a smart and simpl
 
 The solution is relatively immediate as the benchmark implemented as an extra times well below 0.12 seconds, which leads us to think that logically, the program is well structured. The execution time will depend on the size of the file and the iterations that it will make on each line of said file.
 
-The complexity is estimated at O^n, because the algorithm iterates several times on each time for every line of a json file. With the complexity in mind, the time that it takes for the program to run is accurate as the time fluctuates according to the size of the file and the lines in it. It makes sense that a small file is highlighted almost immediately while a larger json with several lines of data takes more time to complete the highlighted html file. 
+The complexity is estimated at n^2, because the algorithm iterates several times on each time for every line of a json file. With the complexity in mind, the time that it takes for the program to run is accurate as the time fluctuates according to the size of the file and the lines in it. It makes sense that a small file is highlighted almost immediately while a larger json with several lines of data takes more time to complete the highlighted html file. 
 
 Regarding the ethical aspect of the development of this program, we 
 believe that it is completely ethical when used for itr purpose, and that it could actually be beneficial when looking for syntax errors on json files. However, regular expressions (Regex) can be misused, leading to practices that are not as common among developers. 
