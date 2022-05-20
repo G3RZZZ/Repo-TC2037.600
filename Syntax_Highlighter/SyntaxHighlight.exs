@@ -41,9 +41,9 @@ defmodule Highlighter do
                 line = Regex.replace(~r{null(?!<\/)|true(?!<\/)|false(?!<\/)}, 
                 line, "<span class='reserved-word'>\\0</span>")
                 code_from_line(line)
-            Regex.run(~r/{(?!<\/)|}(?!<\/)|,(?!<\/)|[[](?!<\/)|[]](?!<\/)/, 
+            Regex.run(~r/{(?!<\/)|}(?!<\/)|,(?!<\/)(?=[^¨] *<|\n)|[[](?!<\/)|[]](?!<\/)/, 
             line) != nil ->
-                line = Regex.replace(~r/{(?!<\/)|}(?!<\/)|,(?!<\/)|[[](?!<\/)|[]](?!<\/)/,
+                line = Regex.replace(~r/{(?!<\/)|}(?!<\/)|,(?!<\/)(?=[^¨] *<|\n)|[[](?!<\/)|[]](?!<\/)/,
                 line, "<span class='punctuation'>\\0</span>")
                 code_from_line(line)
             true ->
