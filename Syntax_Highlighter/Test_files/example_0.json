@@ -1,0 +1,23 @@
+[
+  {
+    "movie": "King Kong",
+    "year": 1933,
+    "director": "Merian C. Cooper",
+    "oscarWinner": null,
+    "imdb": 790.0E-2
+  },
+  {
+    "movie"       : "Jaws",
+    "year"        : 1975,
+    "director"    : "Steven Spielberg",
+    "oscarWinner" : true,
+    "imdb"        : 0.80E+1
+  },
+  {
+    "movie": "Avengers: Endgame",
+    "year": 2019,
+    "director": "Russo brothers",
+    "oscarWinner": false,
+    "imdb": 8.4E0
+  }
+]
