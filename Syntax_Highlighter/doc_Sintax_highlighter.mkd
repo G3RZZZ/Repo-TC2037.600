@@ -24,7 +24,7 @@ In the example, Benchmark is the module used, and measure the name of the functi
 
 ### Reflection and analysis:
 
-Looking back at the proposed solution, the algorithms used are a smart and simple way to achieve the objective of the program, using a recursive function the code can identify each element that we are looking for in a json file and replace it on an html file. For this, Regex is a great tool and technology that is a vital part to the correct functioning of the highlighter. 
+Looking back at the proposed solution, the algorithms used are a smart and simple way to achieve the objective of the program. Using a recursive function the code can identify each element that we are looking for in a json file and replace it on an html file. For this, Regex is a great tool and technology that is a vital part to the correct functioning of the highlighter. This solution, however, is not an optimal one in the long run. This is so since for each of the Regex expresions used in the function, the programmer needs to consider every single possible manner in which the tokens might interact. For example, a json file might have a number inside a string. This case needs to be considered when developing the number identifier Regex expression to assure that it will not be identified inside of a string. Even so, the solution presented correctly identifies the tokens present in this project's test json files.
 
 The solution is relatively immediate as the benchmark implemented as an extra times well below 0.12 seconds, which leads us to think that logically, the program is well structured. The execution time will depend on the size of the file and the iterations that it will make on each line of said file.
 
@@ -32,7 +32,7 @@ The solution is relatively immediate as the benchmark implemented as an extra ti
 The complexity is estimated at n^2, because the algorithm iterates several times on each time for every line of a json file. With the complexity in mind, the time that it takes for the program to run is accurate as the time fluctuates according to the size of the file and the lines in it. It makes sense that a small file is highlighted almost immediately while a larger json with several lines of data takes more time to complete the highlighted html file. 
 
 Regarding the ethical aspect of the development of this program, we 
-believe that it is completely ethical when used for itr purpose, and that it could actually be beneficial when looking for syntax errors on json files. However, regular expressions (Regex) can be misused, leading to practices that are not as common among developers. 
+believe that it is completely ethical when used for its purpose, and that it could actually be beneficial when looking for syntax errors on json files. However, regular expressions (Regex) can be misused, leading to practices that are not as common among developers. 
 
 Regex has the potential to be efficient when identifying strings, reducing the amount of code needed for a process. But as mentioned before, the overuse of regex can turn into complex algorithms and difficult debugging. A balance in the use of this technology is possibly the correct way to go, using small to medium expressions, leaving regex with triple character digits well of the scope of ideal use. 
 
