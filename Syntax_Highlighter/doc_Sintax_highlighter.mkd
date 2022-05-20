@@ -2,16 +2,17 @@
 
 ##### by Mateo Herrera Lavalle A01751912, Gerardo Gutiérrez Paniagua A01029422
 ---
-### How to run the program:
+<!-- ### How to run the program:
 
 Elixir has to be installed in some form or manner, this because the command needed to run the program originates from the elixir terminal instance. 
 
 
-### Reflection and analysis:
+### Reflection and analysis: -->
 
 Looking back at the proposed solution, the algorithms used are a smart and simple way to achieve the objective of the program, using a recursive function the code can identify each element that we are looking for in a json file and replace it on an html file. For this, Regex is a great tool and technology that is a vital part to the correct functioning of the highlighter. 
 
 The solution is relatively immediate as the benchmark implemented as an extra times well below 0.12 seconds, which leads us to think that logically, the program is well structured. The execution time will depend on the size of the file and the iterations that it will make on each line of said file.
+
 
 The complexity is estimated at n^2, because the algorithm iterates several times on each time for every line of a json file. With the complexity in mind, the time that it takes for the program to run is accurate as the time fluctuates according to the size of the file and the lines in it. It makes sense that a small file is highlighted almost immediately while a larger json with several lines of data takes more time to complete the highlighted html file. 
 
