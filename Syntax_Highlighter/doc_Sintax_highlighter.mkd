@@ -2,12 +2,21 @@
 
 ##### by Mateo Herrera Lavalle A01751912, Gerardo Gutiérrez Paniagua A01029422
 ---
-<!-- ### How to run the program:
+### How to run the program:
 
 Elixir has to be installed in some form or manner, this because the command needed to run the program originates from the elixir terminal instance. 
 
+Once the elixir execution mode is active, an example of the command that will run the program is:
+    Highlighter.syntaxHighlight("Test_files/example_0.json")
 
-### Reflection and analysis: -->
+Where Highlighter is the name of the module, syntaxHighlight is the function that reads the file being highlighted. The argument for said function is the address of the file, in this case its under the Test_files folder by the name of example_0.json. 
+
+If the time of execution is to be measured, the module changes, an example is:
+    Benchmark.measure(fn -> Highlighter.syntaxHighlight("Test_files/example_0.json") end)
+
+In the example, Benchmark is the module used, and measure the name of the function that will time the given code. The argument is signaling the function that will be measured using (fn -> + <*the name of the module.name of the function* + ***the arguments for the function***> end)
+
+### Reflection and analysis:
 
 Looking back at the proposed solution, the algorithms used are a smart and simple way to achieve the objective of the program, using a recursive function the code can identify each element that we are looking for in a json file and replace it on an html file. For this, Regex is a great tool and technology that is a vital part to the correct functioning of the highlighter. 
 
