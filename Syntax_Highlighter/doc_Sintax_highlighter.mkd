@@ -8,13 +8,17 @@
 
 Elixir has to be installed in some form or manner, this because the command needed to run the program originates from the elixir terminal instance. This can be easily achieved through the official elixir install documentation which can be found [here](https://elixir-lang.org/install.html).
 
-Once installed, in order to run the code, the elixir interactive terminal must be opened. To do this first move to the Syntax_Highlighter directory inside your therminal and then execute the iex command (or iex.bat if you are on Windows PowerShell, where iex is a PowerShell command) followed by the the elixir file that contains the code. This should look like the following_
+Once installed, in order to run the code, the elixir interactive terminal must be opened. To do this first move to the Syntax_Highlighter directory inside your therminal and then execute the iex command (or iex.bat if you are on Windows PowerShell, where iex is a PowerShell command) followed by the the elixir file that contains the code. This should look like the following:
 
     iex SyntaxHighlight.exs
 
 or
 
     iex SyntaxHighlightV2.exs
+
+or
+
+    iex SyntaxHighlightV3.exs
 
 Once the elixir execution mode is active, an example of the command that will run the program is:
 
@@ -32,11 +36,17 @@ In the example, Benchmark is the module used, and measure the name of the functi
 
 ### Reflection and analysis:
 
+## SytnaxHighlightV3.exs
+
+The best json syntax highlighter performance wise. This version uses the same identify function as V2, but instead of applying it to a stringified file as a whole, it applies it to every line in the file individually.Because of this, the temporal complexity of the code dropped a lot more. This also solved teh problem of having to replace the newline token.
+
+This solution almost inmediate, and it does not scale drasticaly with larger files. In fact, the teproal complexity of this solution appears to be of n. V2 does not scale as well with larger files, so it is possible to clasify this as the most efficient version yet.
+
 ## SytnaxHighlightV2.exs
 
 The new and improved json syntax highlighter. Unlike its predecesor this version of the program does not used Regex.replace as its main functionality. Because of this, the temporal complexity of the code dropped drastically. This also solved various problems within the regex expressions needed to achieve the correct token identification inside the file since the tokens where removed when identified, thus avoiding re-identification inside the same line.
 
-This solution almost inmediate, reaching a lowest time of 0.002 seconds, an an average run time of 0.01 seconds, marginally better than the previous version. The execution time will depend on the size off the file. The complexity of this solution can be estimated to be n^2. This is better than the previous identifier, since the last one was almost n^3.
+This solution is relatively inmediate, reaching a lowest time of 0.002 seconds, an an average run time of 0.01 seconds, marginally better than the previous version. The execution time will depend on the size off the file. The complexity of this solution can be estimated to be n^2. This is better than the previous identifier, since the last one was almost n^3.
 
 ## SyntaxHighlight.exs
 
