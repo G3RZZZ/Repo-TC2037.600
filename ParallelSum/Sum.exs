@@ -1,4 +1,19 @@
+# Mateo Herrera - A01751912
+# Gerardo Gutierrez - A01029422
+
+# Use of concurrency and parallel execution to calculate te sum of all prime
+# numbers before a limit. This modue also has the option to calculate this 
+# sequentially so as to compare the execution times. 
+
+# Example calls:
+# Highlighter.sum_primes(1000)
+# Highlighter.sum_primes_parallel(1000, 3)
+
+
 defmodule Hw.Primes do
+
+    # This function checks wether or not a number n is a prime number using
+    # recursion.
     def checkPrime(n) when n < 2, do: false
     def checkPrime(n) when n == 2, do: true
     def checkPrime(n), do: checkPrimeAux(n, 2, abs(:math.sqrt(n)))
@@ -6,8 +21,11 @@ defmodule Hw.Primes do
         defp checkPrimeAux(_n, i, limit) when i >= limit, do: true
         defp checkPrimeAux(n, i, limit), do: checkPrimeAux(n, i + 1, limit)
 
+    # This function calls the recursive sum funtion sequentially.
     def sum_primes(limit), do: sum_primesAux({0, limit}, 0)
 
+    # This function adds up the prime numbers from start to limit(i.e 0 -> 1000).
+    # It does this via recursion and pattern matching.
     defp sum_primesAux({start, limit}, res) when start > limit, do: res
     defp sum_primesAux({start, limit}, res) do
         if checkPrime(start) do
@@ -17,6 +35,9 @@ defmodule Hw.Primes do
         end
     end
 
+    # This function calls the recursive sum function and executes it in
+    # parallel according to the number of threads specified or the max number
+    # of cores in the system.
     def sum_primes_parallel(limit, threads \\ System.schedulers) do
         coeficient = div(limit, threads)
         remainder = rem(limit, threads)
