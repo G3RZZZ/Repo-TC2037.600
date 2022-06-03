@@ -6,8 +6,8 @@
 # sequentially so as to compare the execution times. 
 
 # Example calls:
-# Highlighter.sum_primes(1000)
-# Highlighter.sum_primes_parallel(1000, 3)
+# Hw.Primes.sum_primes(1000)
+# Hw.Primes.sum_primes_parallel(1000, 3)
 
 
 defmodule Hw.Primes do
@@ -48,4 +48,18 @@ defmodule Hw.Primes do
             |>Enum.map(&Task.await(&1))
             |>Enum.sum()
     end
+end
+
+# Module that checks a function execution time.
+# Taken from:
+# https://stackoverflow.com/questions/29668635/how-can-we-easily-time-function-calls-in-elixir
+# Example call:
+# Benchmark.measure(fn -> Hw.Primes.sum_primes_parallel(1000, 3) end)
+defmodule Benchmark do
+  def measure(function) do
+    function
+    |> :timer.tc
+    |> elem(0)
+    |> Kernel./(1_000_000)
+  end
 end
