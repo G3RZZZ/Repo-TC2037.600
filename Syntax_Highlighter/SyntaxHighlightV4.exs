@@ -4,7 +4,8 @@
 # Use of regex and language interpratation knowledge
 # to create a json file token identifier.
 # The identified tokens are returned in a html file.
-# This version supports multi file parrallel identification.
+# This version supports multi file parallel identification and it also 
+# does the same thing sequentially for comparison.
 
 # Example calls:
 # Highlighter.syntaxHighlight("Test_files/example_0.json")
@@ -84,10 +85,17 @@ defmodule Highlighter do
 
     # This function retrieves all json files inside a folder in this directory,
     # It then uses concurrency to identify the files in the folder in parallel.
-    def muliSyntaxHighlight(folder) do
+    def multiSyntaxHighlightParallel(folder) do
         Path.wildcard("./#{folder}/*.json")
         |> Enum.map(&Task.async(fn -> syntaxHighlight(&1) end))
         |> Enum.map(&Task.await(&1))
+    end
+
+    # This function retrieves all json files inside a folder in this directory,
+    # It then executes the highlight function sequentially.
+    def multiSyntaxHighlightSequential(folder) do
+        Path.wildcard("./#{folder}/*.json")
+        |> Enum.map(&syntaxHighlight(&1))
     end
 
 end
