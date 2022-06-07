@@ -2,4 +2,7 @@
 
 - Automaton program (DFA) and its respective documentation.
 
-- Syntax Highlighter
+- Syntax Highlighter and its respective documentation.
+
+- Parallel method program and its respective documentation.
+
