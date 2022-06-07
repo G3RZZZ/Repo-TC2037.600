@@ -1,0 +1,33 @@
+# Documentation for Parallel Sum program
+
+##### by Mateo Herrera Lavalle A01751912, Gerardo Gutiérrez Paniagua A01029422
+
+---
+
+### Time and speedup analysis:
+
+One of the steps on the program is verifying that a number is a prime, the solution implemented works in a recursive way so that checking and verifying primes is fluid and does not add any complexity.
+
+The function created to add up the encountered prime numbers also works in a recursive way, using the checkPrime function within its execution, the sum is done until it reaches the number considered as the limit. 
+
+Both of the previously mentioned functions are part of the main execution that handles the solution using parallel calculations, dividing the tasks in threads. In the example callbacks for the parallel method the number of threads used is 3, however, in order to measure an average performance 4 threads should be the appropriate parameter to use. 
+
+The resource used to measure the time the methods take to complete the task is a benchmark function that was taken from https://stackoverflow.com/questions/29668635/how-can-we-easily-time-function-calls-in-elixir .
+
+Testing the addition of prime numbers up to 5000000 in a sequential manner times at 14 seconds on average, but when testing the same number with 4 threads in a parallel method the time is drastically reduced, scoring 5.7 seconds on average. 
+
+The tests made were using the calls:
+
+    For sequential execution:
+    Benchmark.measure(fn -> Hw.Primes.sum_primes(5000000) end)
+
+    For parallel execution:
+    Benchmark.measure(fn -> Hw.Primes.sum_primes_parallel(5000000, 4) end)
+
+In terms of the *speedup*, it was calculated that there is a ***2.45 X*** performance increase on average. This result was obtained using the following:
+
+$S_{p} = \frac{T_{1}}{T_{p}}$
+
+Where $S_{p}$ is the *speedup*, $T_{1}$ is the time the sequential method took to finish, and $T_{p}$ is the time using the parallel method. 
+
+
