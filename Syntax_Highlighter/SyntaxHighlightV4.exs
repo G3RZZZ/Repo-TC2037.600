@@ -20,7 +20,7 @@ defmodule Highlighter do
             |> File.stream!()
             |> Enum.map(&identify&1)
             |> Enum.join("\n")   
-        createHtml(code, String.replace(in_filename, "Test_files", "Result_files"))
+        createHtml(code, String.replace(in_filename, "Test", "Result"))
     end
 
     # Function that accepts a line from the json file and identifies its tokens
@@ -88,7 +88,7 @@ defmodule Highlighter do
     def multiSyntaxHighlightParallel(folder) do
         Path.wildcard("./#{folder}/*.json")
         |> Enum.map(&Task.async(fn -> syntaxHighlight(&1) end))
-        |> Enum.map(&Task.await(&1))
+        |> Enum.map(&Task.await(&1, :infinity))
     end
 
     # This function retrieves all json files inside a folder in this directory,
