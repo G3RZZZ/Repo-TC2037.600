@@ -8,7 +8,7 @@
 # does the same thing sequentially for comparison.
 
 # Example calls:
-# Highlighter.syntaxHighlight("Test_files/example_0.json")
+# Highlighter.multiSyntaxHighlightParallel("Test_big_files")
 
 defmodule Highlighter do
 
@@ -104,7 +104,7 @@ end
 # Taken from:
 # https://stackoverflow.com/questions/29668635/how-can-we-easily-time-function-calls-in-elixir
 # Example call:
-# Benchmark.measure(fn -> Highlighter.syntaxHighlight("Test_files/example_0.json") end)
+# Benchmark.measure(fn -> Highlighter.Highlighter.multiSyntaxHighlightParallel("Test_big_files") end)
 defmodule Benchmark do
   def measure(function) do
     function
