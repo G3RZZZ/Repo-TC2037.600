@@ -20,6 +20,10 @@ or
 
     iex SyntaxHighlightV3.exs
 
+or
+
+    iex SyntaxHighlightV4.exs
+
 Once the elixir execution mode is active, an example of the command that will run the program is:
 
     Highlighter.syntaxHighlight("Test_files/example_0.json")
@@ -32,21 +36,12 @@ If the time of execution is to be measured, the module changes, an example is:
 
 In the example, Benchmark is the module used, and measure the name of the function that will time the given code. The argument is signaling the function that will be measured using (fn -> + <*the name of the module.name of the function* + ***the arguments for the function***> end)
 
+
+*-Note that the name of the functions change with each version of the program, so adjust this in order to run the correct file-* 
+
 ---
 
 ### Reflection and analysis:
-
-## SyntaxHighlightV3.exs
-
-The best json syntax highlighter performance wise. This version uses the same identify function as V2, but instead of applying it to a stringified file as a whole, it applies it to every line in the file individually.Because of this, the temporal complexity of the code dropped a lot more. This also solved teh problem of having to replace the newline token.
-
-This solution almost immediate, and it does not scale drastically with larger files. In fact, the temporal complexity of this solution appears to be of n. V2 does not scale as well with larger files, so it is possible to classify this as the most efficient version yet.
-
-## SyntaxHighlightV2.exs
-
-The new and improved json syntax highlighter. Unlike its predecessor this version of the program does not used Regex.replace as its main functionality. Because of this, the temporal complexity of the code dropped drastically. This also solved various problems within the regex expressions needed to achieve the correct token identification inside the file since the tokens where removed when identified, thus avoiding re-identification inside the same line.
-
-This solution is relatively immediate, reaching a lowest time of 0.002 seconds, an an average run time of 0.01 seconds, marginally better than the previous version. The execution time will depend on the size off the file. The complexity of this solution can be estimated to be n^2. This is better than the previous identifier, since the last one was almost n^3.
 
 ## SyntaxHighlight.exs
 
@@ -54,7 +49,36 @@ Looking back at the proposed solution, the algorithms used are a smart and simpl
 
 The solution is relatively immediate, reaching an average run time of 0.26 seconds, which leads us to think that logically, the program is well structured. The execution time will depend on the size of the file and the iterations that it will make on each line of said file.
 
-The complexity is estimated at n^2, almost n^3, because the algorithm iterates several times on each time for every line of a json file. With the complexity in mind, the time that it takes for the program to run is accurate as the time fluctuates according to the size of the file and the lines in it. It makes sense that a small file is highlighted almost immediately while a larger json with several lines of data takes more time to complete the highlighted html file. 
+The complexity is estimated at n^2, almost n^3, because the algorithm iterates several times on each time for every line of a json file. With the complexity in mind, the time that it takes for the program to run is accurate as the time fluctuates according to the size of the file and the lines in it. It makes sense that a small file is highlighted almost immediately while a larger json with several lines of data takes more time to complete the highlighted html file.
+
+## SyntaxHighlightV2.exs
+
+The new and improved json syntax highlighter. Unlike its predecessor this version of the program does not used Regex.replace as its main functionality. Because of this, the temporal complexity of the code dropped drastically. This also solved various problems within the regex expressions needed to achieve the correct token identification inside the file since the tokens where removed when identified, thus avoiding re-identification inside the same line.
+
+This solution is relatively immediate, reaching a lowest time of 0.002 seconds, an an average run time of 0.01 seconds, marginally better than the previous version. The execution time will depend on the size off the file. The complexity of this solution can be estimated to be n^2. This is better than the previous identifier, since the last one was almost n^3.
+
+## SyntaxHighlightV3.exs
+
+The best json syntax highlighter performance wise. This version uses the same identify function as V2, but instead of applying it to a stringified file as a whole, it applies it to every line in the file individually.Because of this, the temporal complexity of the code dropped a lot more. This also solved teh problem of having to replace the newline token.
+
+This solution almost immediate, and it does not scale drastically with larger files. In fact, the temporal complexity of this solution appears to be of n. V2 does not scale as well with larger files, so it is possible to classify this as the most efficient version yet.
+
+## SyntaxHighlightV4.exs
+
+This version of the json syntax highlighter builds upon the previous version and takes a new approach on tackling the tasks that the highlighter does. One of the changes made was to determine exactly the name of the file that the html code should have, this alteration goes mainly to have order on how the program manages the result file and have more control over input and output.
+
+Compared to the temporal complexity of v3, v4 is very similar, the only difference relies on the amount of highlighting done by the program, where in v3 it is one file, in v4 it is a folder o json files. However, apart form the quantities, the main executable code remains the same. This means that the efficiency its still present, and maybe even more depending on the method used, sequential or parallel. 
+
+Given that in this last version there are two ways or methods to run the program, a *speedup* is expected to happen as the parallel function is expected to divide the tasks and tackle the problem more efficiently than ever, giving as a result much faster times of completion. 
+
+This *speedup* is calculated as follows:
+
+$S_{p} = \frac{T_{1}}{T_{p}}$
+
+Where $S_{p}$ is the *speedup*, $T_{1}$ is the time the sequential method took to finish, and $T_{p}$ is the time using the parallel method. Each field in the calculation is an average obtained from four runs of the program in the method that is looking to be measured. 
+
+The result of the *speedup* was a difference of [blank] times, where the parallel method surpasses its sequential counterpart. This would indeed indicate that the fourth version of the solution run in a parallel manner is the more efficient and faster way found so far.
+
 
 ## Ethical responsibility
 
