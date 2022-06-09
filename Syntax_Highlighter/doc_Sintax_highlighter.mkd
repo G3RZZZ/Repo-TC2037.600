@@ -77,8 +77,9 @@ $S_{p} = \frac{T_{1}}{T_{p}}$
 
 Where $S_{p}$ is the *speedup*, $T_{1}$ is the time the sequential method took to finish, and $T_{p}$ is the time using the parallel method. Each field in the calculation is an average obtained from four runs of the program in the method that is looking to be measured. 
 
-The result of the *speedup* was a difference of [blank] times, where the parallel method surpasses its sequential counterpart. This would indeed indicate that the fourth version of the solution run in a parallel manner is the more efficient and faster way found so far.
 
+
+The result of the *speedup* was a difference of ***2.46 times***, where the parallel method surpasses its sequential counterpart. This would indeed indicate that the fourth version of the solution run in a parallel manner is the more efficient and the fastest way found so far, however relying slightly on the core count of the users computer, although not entirely.
 
 ## Ethical responsibility
 

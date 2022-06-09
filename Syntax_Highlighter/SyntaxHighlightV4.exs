@@ -4,7 +4,7 @@
 # Use of regex and language interpratation knowledge
 # to create a json file token identifier.
 # The identified tokens are returned in a html file.
-# This version supports multi file parallel identification and it also 
+# This version supports multi file parallel identification and it also
 # does the same thing sequentially for comparison.
 
 # Example calls:
@@ -19,14 +19,14 @@ defmodule Highlighter do
             in_filename
             |> File.stream!()
             |> Enum.map(&identify&1)
-            |> Enum.join("\n")   
+            |> Enum.join("\n")
         createHtml(code, String.replace(in_filename, "Test", "Result"))
     end
 
     # Function that accepts a line from the json file and identifies its tokens
     # It does this by placing already identified tokens in a list
     # and removing them from the original string. When every token is identified
-    # and the string is empty, the function returns the list that was 
+    # and the string is empty, the function returns the list that was
     # turned into a string beforehand.
     def identify(code), do: identify_tail(code, [])
         # defp identify_tail("", lst), do: to_string(lst)
@@ -69,7 +69,7 @@ defmodule Highlighter do
 
     # This function is used to create the HTML tags that contain the idenified
     # json tokens.
-    def htmlTag(token, id), do: "<span class='#{id}'>#{to_string(token)}</span>"    
+    def htmlTag(token, id), do: "<span class='#{id}'>#{to_string(token)}</span>"
 
     # This function creates a new html file based on a template and it inserts
     # the token identified json code.
@@ -104,7 +104,7 @@ end
 # Taken from:
 # https://stackoverflow.com/questions/29668635/how-can-we-easily-time-function-calls-in-elixir
 # Example call:
-# Benchmark.measure(fn -> Highlighter.Highlighter.multiSyntaxHighlightParallel("Test_big_files") end)
+# Benchmark.measure(fn -> Highlighter.multiSyntaxHighlightParallel("Test_big_files") end)
 defmodule Benchmark do
   def measure(function) do
     function
