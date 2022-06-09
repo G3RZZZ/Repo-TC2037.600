@@ -2,8 +2,8 @@
 # Gerardo Gutierrez - A01029422
 
 # Use of concurrency and parallel execution to calculate te sum of all prime
-# numbers before a limit. This modue also has the option to calculate this 
-# sequentially so as to compare the execution times. 
+# numbers before a limit. This modue also has the option to calculate this
+# sequentially so as to compare the execution times.
 
 # Example calls:
 # Hw.Primes.sum_primes(1000)
@@ -45,7 +45,7 @@ defmodule Hw.Primes do
         starts = [0 | Enum.to_list(coeficient+remainder+1..limit//coeficient)]
         Enum.zip(starts, limits)
             |>Enum.map(&Task.async(fn -> sum_primesAux(&1, 0) end))
-            |>Enum.map(&Task.await(&1))
+            |>Enum.map(&Task.await(&1, :infinity))
             |>Enum.sum()
     end
 end
