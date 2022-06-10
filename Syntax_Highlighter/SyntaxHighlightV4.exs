@@ -56,7 +56,7 @@ defmodule Highlighter do
                 String.match?(code, ~r{^null|^true|^false}) ->
                     match = Regex.run(~r{(^null|^true|^false)(.*)}, code)
                     identify_tail(Enum.at(match, 2), [htmlTag(Enum.at(match, 1),
-                    "number") | newLine])
+                    "reserved-word") | newLine])
                 #Punctuation regex identifier
                 String.match?(code, ~r/^[[]|^[]]|^{|^}|^,/) ->
                     match = Regex.run(~r/(^[[]|^[]]|^{|^}|^,)(.*)/, code)
@@ -104,7 +104,7 @@ end
 # Taken from:
 # https://stackoverflow.com/questions/29668635/how-can-we-easily-time-function-calls-in-elixir
 # Example call:
-# Benchmark.measure(fn -> Highlighter.Highlighter.multiSyntaxHighlightParallel("Test_big_files") end)
+# Benchmark.measure(fn -> Highlighter.multiSyntaxHighlightParallel("Test_big_files") end)
 defmodule Benchmark do
   def measure(function) do
     function
