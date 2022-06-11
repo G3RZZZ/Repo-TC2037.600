@@ -1,5 +1,22 @@
+# Mateo Herrera - A01751912
+# Gerardo Gutierrez - A01029422
+
+# Use of regex and language interpratation knowledge
+# to create a json file token identifier.
+# The identified tokens are returned in a html file.
+# This version supports multi file parallel identification and it also
+# does the same thing sequentially for comparison.
+# Python Version
+
+# Example calls:
+# python .\SyntaxHighlight.py "Test_big_files"
+
 import re
 from datetime import date
+import time
+import multiprocessing
+import os
+import sys
 
 def syntaxHighlight(filename):
     file = open(filename)
@@ -7,7 +24,6 @@ def syntaxHighlight(filename):
     code = ""
     file.close()
     for i in range(0,len(lines)):
-        print(identify(lines[i]))
         lines[i] = identify(lines[i])
     code = code.join(lines)
     writeHtml(code, filename)
@@ -36,8 +52,8 @@ def identify(lines):
             match = re.search('^null|^true|^false', lines)
             identifiedLines += htmlTag(match.group(), "reserved-word")
             lines = lines.replace(match.group(),'',1)
-        elif re.search('^[[]|^[]]|^{|^}|^,', lines):
-            match = re.search('^[[]|^[]]|^{|^}|^,', lines)
+        elif re.search('^[\[]|^[\]]|^{|^}|^,', lines):
+            match = re.search('^[\[]|^[\]]|^{|^}|^,', lines)
             identifiedLines += htmlTag(match.group(), "punctuation")
             lines = lines.replace(match.group(),' ',1)
         else:
@@ -49,18 +65,32 @@ def htmlTag(token, id):
     return "<span class='" + id + "'>" + token + "</span>"
 
 def writeHtml(lines, filename):
-    # templatefile = open("template_page.html")
-    # file = open((filename.replace("json", "html")), "w")
-    # file.write = templatefile.read()
-    # templatefile.close()
-    # file.write()
-    # file.close()
-
+    filename = filename.replace("Test", "Result")
     with open("template_page.html", "rt") as fin:
         with open(filename.replace("json", "html"), "wt") as fout:
             for line in fin:
-                fout.write(line.replace("~a", date.today()))
+                # fout.write(line.replace("~a", date.today().strftime("%d/%m/%Y")))
                 fout.write(line.replace("~b", lines))
         fout.close()
         fin.close()
 
+def multiSyntaxHighlightParallel(folder):
+    files = os.listdir(folder)
+    for i in range(len(files)):
+        files[i] = folder + "/" + files[i]
+    if __name__ == '__main__':
+        pool = multiprocessing.Pool(multiprocessing.cpu_count())
+        outputs_async = pool.map_async(syntaxHighlight, files)
+        outputs = outputs_async.get()
+        print("Output: {}".format(outputs))
+
+def multiSyntaxHighlightSequential(folder):
+    files = os.listdir(folder)
+    for i in range(len(files)):
+        files[i] = folder + "/" + files[i]
+        syntaxHighlight(files[i])
+
+start = time.time()
+multiSyntaxHighlightParallel(sys.argv[1])
+end = time.time()
+print ("Execution time: %s"  % (end-start))
